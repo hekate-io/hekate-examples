@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 The Hekate Project
+  ~
+  ~ The Hekate Project licenses this file to you under the Apache License,
+  ~ version 2.0 (the "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at:
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+  ~ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.hekate</groupId>
+    <artifactId>hekate-examples</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <hekate.version>2.3.0</hekate.version>
+        <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
+        <logback.version>1.2.1</logback.version>
+        <snakeyaml.version>1.17</snakeyaml.version>
+
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.hekate</groupId>
+            <artifactId>hekate-spring-boot</artifactId>
+            <version>${hekate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>hekate-examples</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <id>repackage-cluster-view-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.cluster.ClusterViewExample</mainClass>
+                            <classifier>cluster-view</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-cluster-future-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.cluster.ClusterFutureExample</mainClass>
+                            <classifier>cluster-future</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-cluster-listener-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.cluster.ClusterListenerExample</mainClass>
+                            <classifier>cluster-listener</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-distributed-lock-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.lock.DistributedLockExample</mainClass>
+                            <classifier>distributed-lock</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-messaging-aggregate-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.messaging.MessagingAggregateExample</mainClass>
+                            <classifier>messaging-aggregate</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-messaging-broadcast-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.messaging.MessagingBroadcastExample</mainClass>
+                            <classifier>messaging-broadcast</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-messaging-request-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.messaging.MessagingRequestExample</mainClass>
+                            <classifier>messaging-request</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-rpc-request-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.rpc.RpcRequestExample</mainClass>
+                            <classifier>rpc-request</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-rpc-aggregate-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.rpc.RpcAggregateExample</mainClass>
+                            <classifier>rpc-aggregate</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-rpc-split-aggregate-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.rpc.RpcSplitAggregateExample</mainClass>
+                            <classifier>rpc-split-aggregate</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>repackage-election-example</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <mainClass>io.hekate.examples.election.ElectionExample</mainClass>
+                            <classifier>election</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
