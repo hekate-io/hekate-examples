@@ -1,11 +1,13 @@
 hekate:
-    cluster-name: example
-    node-name: example.node
+    cluster-name: example-cluster
+    node-name: example-node
     roles:
       - example
     properties:
       property1: value1
       property2: value2
+
+    codec: jdk
 
     network:
         host: any-ip4
