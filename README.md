@@ -26,11 +26,11 @@ Each such artifact is a self-contained  Spring Boot application that can easily 
  - `java -jar hekate-example-distributed-lock.jar`
  - etc...
 
-### How to configure:
+### Configuration:
 
-All examples share the same configuration file in Spring Boot YAML format (see [application.yml](src/main/resources/application.yml)).
+All examples use the same **[application.yml](src/main/resources/application.yml)** configuration file (Spring Boot YAML format).
 
-This file gets automatically included into all example jars files at build time. It is possible to override configuration properties by 
+This file gets automatically included into all of the jar-files at build time. It is possible to override configuration properties by 
 specifying an external configuration file as described in Spring Boot's 
 [documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files).
 
