@@ -1,72 +1,87 @@
 hekate:
-    cluster-name: example-cluster
-    node-name: example-node
-    roles:
-      - example
-    properties:
-      property1: value1
-      property2: value2
+  cluster-name: example-cluster
+  node-name: example-node
+  roles:
+    - example
+  properties:
+    property1: value1
+    property2: value2
 
-    codec: jdk
+  codec: jdk
 
-    network:
-        host: any-ip4
-        port: 10012
-        port-range: 100
-        nio-threads: 4
-        transport: auto
+  network:
+    host: any-ip4
+    port: 10012
+    port-range: 100
+    nio-threads: 4
+    transport: auto
+    connect-timeout: 3000
+    heartbeat-interval: 1000
+    heartbeat-loss-threshold: 3
+    accept-retry-interval: 1000
+
+  cluster:
+    gossip-interval: 1000
+    speed-up-gossip-size: 100
+    split-brain-action: rejoin
+
+    health:
+      heartbeat-interval: 500
+      heartbeat-loss-threshold: 6
+      failure-detection-quorum: 2
+
+    seed:
+      policy: ignore_partial_errors
+      multicast:
+        enable: true
+        group: 224.1.2.12
+        port: 45454
+        ttl: 3
+        interval: 200
+        wait-time: 1000
+        loop-back-disabled: false
+
+      static:
+        enable: false
+        addresses:
+          - 127.0.0.1:10012
+          - 127.0.0.1:10013
+          - 127.0.0.1:10014
+
+      filesystem:
+        enable: false
+        work-dir: ./cluster_nodes
+        cleanup-interval: 60000
+
+      jdbc:
+        enable: false
+        query-timeout: 3
+        table: cluster_nodes
+        host-column: host
+        port-column: port
+        cluster-column: cluster_name
+        cleanup-interval: 60000
+
+      zookeeper:
+        enable: false
+        connection-string: localhost:2181
+        base-path: /hekate/cluster
         connect-timeout: 3000
-        heartbeat-interval: 1000
-        heartbeat-loss-threshold: 3
-        accept-retry-interval: 1000
+        session-timeout: 10000
 
-    cluster:
-        gossip-interval: 1000
-        speed-up-gossip-size: 100
-        split-brain-action: rejoin
+      cloud:
+        enable: false
+        provider: aws-ec2
+        regions:
+          - eu-central-1
+        endpoint: ''
+        identity: '<replace with access key>'
+        credential: '<replace with secret key>'
 
-        health:
-            heartbeat-interval: 500
-            heartbeat-loss-threshold: 6
-            failure-detection-quorum: 2
-
-        seed:
-            multicast:
-                enable: true
-                group: 224.1.2.12
-                port: 45454
-                ttl: 3
-                interval: 200
-                wait-time: 1000
-                loop-back-disabled: false
-
-            cloud:
-                enable: false
-                provider: aws-ec2
-                regions:
-                  - eu-central-1
-                endpoint: ''
-                identity: ''
-                credential: ''
-
-            cloudstore:
-                enable: false
-                provider: aws-s3
-                container: hekate_cluster
-                cleanup-interval: 60000
-                identity: ''
-                credential: ''
-
-            filesystem:
-                enable: false
-                work-dir: ./cluster_nodes
-                cleanup-interval: 60000
-
-            jdbc:
-                enable: false
-                query-timeout: 3
-                cleanup-interval: 60000
-                table: cluster_nodes
-                host-column: host
-                port-column: port
-                cluster-column: cluster_name
+      cloudstore:
+        enable: false
+        provider: aws-s3
+        container: hekate_cluster
+        identity: '<replace with access key>'
+        credential: '<replace with secret key>'
+        cleanup-interval: 60000
