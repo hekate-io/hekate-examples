@@ -19,8 +19,9 @@ package io.hekate.examples.messaging;
 import io.hekate.core.Hekate;
 import io.hekate.messaging.MessagingChannel;
 import io.hekate.messaging.MessagingChannelConfig;
-import io.hekate.messaging.broadcast.AggregateResult;
+import io.hekate.messaging.operation.AggregateResult;
 import io.hekate.spring.boot.EnableHekate;
+import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +51,7 @@ public class MessagingAggregateExample {
 
         while (channel.cluster().awaitForNodes()) {
             // Submit aggregation request and get results.
-            AggregateResult<String> result = channel.aggregate("get_some_value").get();
+            AggregateResult<String> result = channel.aggregate("get_some_value");
 
             if (result.isSuccess()) {
                 say("Result: " + result.stream().sorted().collect(joining(",")));
@@ -72,8 +73,12 @@ public class MessagingAggregateExample {
     public MessagingChannelConfig<String> exampleChannelConfig() {
         return MessagingChannelConfig.of(String.class)
             .withName("aggregate-example")
+            .withRetryPolicy(retry -> retry
+                .whileError(err -> err.isCausedBy(IOException.class))
+                .maxAttempts(3)
+            )
             .withReceiver(request -> {
-                if ("get_some_value".equals(request.get())) {
+                if ("get_some_value".equals(request.payload())) {
                     String someValue = request.channel().cluster().topology().localNode().address().socket().toString();
 
                     // Reply asynchronously.

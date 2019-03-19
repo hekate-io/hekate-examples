@@ -19,8 +19,9 @@ package io.hekate.examples.messaging;
 import io.hekate.core.Hekate;
 import io.hekate.messaging.MessagingChannel;
 import io.hekate.messaging.MessagingChannelConfig;
-import io.hekate.messaging.broadcast.BroadcastResult;
+import io.hekate.messaging.operation.BroadcastResult;
 import io.hekate.spring.boot.EnableHekate;
+import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -52,7 +53,7 @@ public class MessagingBroadcastExample {
             String message = "message from " + hekate.localNode();
 
             // Submit broadcast message.
-            BroadcastResult<String> result = channel.broadcast(message).get();
+            BroadcastResult<String> result = channel.broadcast(message);
 
             if (result.isSuccess()) {
                 say("Submitted to: " + result.nodes().stream()
@@ -77,8 +78,12 @@ public class MessagingBroadcastExample {
     public MessagingChannelConfig<String> exampleChannelConfig() {
         return MessagingChannelConfig.of(String.class)
             .withName("broadcast-example")
+            .withRetryPolicy(retry -> retry
+                .whileError(err -> err.isCausedBy(IOException.class))
+                .maxAttempts(3)
+            )
             .withReceiver(msg ->
-                say("Received: " + msg.get())
+                say("Received: " + msg.payload())
             );
     }
 

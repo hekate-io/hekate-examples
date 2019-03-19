@@ -17,10 +17,10 @@
 package io.hekate.examples.messaging;
 
 import io.hekate.core.Hekate;
-import io.hekate.failover.FailoverPolicyBuilder;
 import io.hekate.messaging.MessagingChannel;
 import io.hekate.messaging.MessagingChannelConfig;
 import io.hekate.spring.boot.EnableHekate;
+import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +48,7 @@ public class MessagingRequestExample {
 
         while (channel.cluster().awaitForNodes()) {
             // Send PING and await for PONG.
-            String pong = channel.request("PING").response();
+            String pong = channel.request("PING");
 
             say("Got PONG from:  " + pong);
 
@@ -66,6 +66,10 @@ public class MessagingRequestExample {
     public MessagingChannelConfig<String> exampleChannelConfig() {
         return MessagingChannelConfig.of(String.class)
             .withName("request-example")
+            .withRetryPolicy(retry -> retry
+                .whileError(err -> err.isCausedBy(IOException.class))
+                .maxAttempts(3)
+            )
             .withReceiver(request -> {
                 say("Got PING from: " + request.from());
 
@@ -77,12 +81,7 @@ public class MessagingRequestExample {
                         say("Response failure: " + err);
                     }
                 });
-            })
-            .withFailoverPolicy(new FailoverPolicyBuilder()
-                .withMaxAttempts(3)
-                .withConstantRetryDelay(1000)
-                .build()
-            );
+            });
     }
 
     private static void say(String msg) {
