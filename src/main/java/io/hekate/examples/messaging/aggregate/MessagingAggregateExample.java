@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.hekate.examples.messaging;
+package io.hekate.examples.messaging.aggregate;
 
 import io.hekate.core.Hekate;
 import io.hekate.messaging.MessagingChannel;

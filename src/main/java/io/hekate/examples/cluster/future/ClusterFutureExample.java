@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.hekate.examples.cluster;
+package io.hekate.examples.cluster.future;
 
 import io.hekate.cluster.ClusterTopology;
 import io.hekate.core.Hekate;

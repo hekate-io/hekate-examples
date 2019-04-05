@@ -39,26 +39,26 @@ specifying an external configuration file as described in Spring Boot's
 ### Cluster
 
  - `hekate-example-cluster-listener.jar` 
-    ([source code](src/main/java/io/hekate/examples/cluster/ClusterListenerExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/cluster/listener/ClusterListenerExample.java)) - 
     An example which shows how to implement a simple listener of cluster events 
  - `hekate-example-cluster-view.jar` 
-    ([source code](src/main/java/io/hekate/examples/cluster/ClusterViewExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/cluster/view/ClusterViewExample.java)) - 
     An example which shows how to build different cluster views based on dynamic filtering of the cluster topology
  - `hekate-example-cluster-future.jar` 
-    ([source code](src/main/java/io/hekate/examples/cluster/ClusterFutureExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/cluster/future/ClusterFutureExample.java)) - 
     An example which shows how to register a cluster topology condition and get a notification once it is met
     
 
 ### Remote Procedure Calls (RPC)
 
  - `hekate-example-rpc-request.jar` 
-    ([source code](src/main/java/io/hekate/examples/rpc/RpcRequestExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/rpc/request/RpcRequestExample.java)) - 
     A simple example of request/response RPCs
  - `hekate-example-rpc-agregate.jar` 
-    ([source code](src/main/java/io/hekate/examples/rpc/RpcAggregateExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/rpc/aggregate/RpcAggregateExample.java)) - 
     An example of how to submit an RPC request to all cluster nodes and how to aggregate RPC results
  - `hekate-example-rpc-split-agregate.jar` 
-    ([source code](src/main/java/io/hekate/examples/rpc/RpcSplitAggregateExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/rpc/split/RpcSplitAggregateExample.java)) - 
     An example of how to perform a Map/Reduce style of RPC communications
 
 ### Distributed Locks
@@ -76,12 +76,12 @@ specifying an external configuration file as described in Spring Boot's
 ### Messaging
 
  - `hekate-example-messaging-request.jar` 
-    ([source code](src/main/java/io/hekate/examples/messaging/MessagingRequestExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/messaging/request/MessagingRequestExample.java)) - 
     A simple example of request/response messaging
  - `hekate-example-messaging-aggregate.jar` 
-    ([source code](src/main/java/io/hekate/examples/messaging/MessagingAggregateExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/messaging/aggregate/MessagingAggregateExample.java)) - 
     An example of how to submit a message to all cluster nodes and how to aggregate their responses
  - `hekate-example-messaging-broadcast.jar` 
-    ([source code](src/main/java/io/hekate/examples/messaging/MessagingBroadcastExample.java)) - 
+    ([source code](src/main/java/io/hekate/examples/messaging/broadcast/MessagingBroadcastExample.java)) - 
     A simple example of broadcast messaging
 

@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.hekate.examples.cluster;
+package io.hekate.examples.cluster.view;
 
 import io.hekate.cluster.ClusterView;
 import io.hekate.cluster.event.ClusterEventType;

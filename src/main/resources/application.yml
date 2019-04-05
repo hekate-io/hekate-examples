@@ -1,37 +1,116 @@
 hekate:
+  ########################################################################################
+  # Cluster Node Properties
+  ########################################################################################
+  # Cluster name (only those instances that are configured with the same cluster name can form a cluster).
   cluster-name: example-cluster
+
+  # Node name (optional, simply gives a human-readable name to this cluster node).
   node-name: example-node
+
+  # Roles of this node (optional)
   roles:
     - example
+
+  # User-defined properties of this node (optional)
+  # Remote nodes will be able to see those properties through the cluster service API.
   properties:
     property1: value1
     property2: value2
 
+  ########################################################################################
+  # Data Serialization
+  ########################################################################################
+  #
+  #  - jdk  - for JDK default serialization
+  #
+  #  - fst  - for FST serialization (see https://github.com/RuedigerMoeller/fast-serialization)
+  #           Requires `io.hekate:hekate-codec-fst` maven/gradle dependency.
+  #
+  #  - kryo - for Kryo serialization (see https://github.com/EsotericSoftware/kryo)
+  #           Requires `io.hekate:hekate-codec-kryo` maven/gradle dependency.
   codec: jdk
 
+  ########################################################################################
+  # Network Configuration
+  ########################################################################################
   network:
+    # Host address:
+    #
+    #   any         - any non-loopback address
+    #   any-ip4     - any IPv4 non-loopback address
+    #   any-ip6     - any IPv6 non-loopback address
+    #
+    #   ip~regex    - any IP address that matches the specified regular expression
+    #   ip4~regex   - any IPv4 address that matches the specified regular expression
+    #   ip6~regex   - any IPv6 address that matches the specified regular expression
+    # 
+    #   !ip~regex   - any IP address that does NOT match the specified regular expression
+    #   !ip4~regex  - any IPv4 address that does NOT match the specified regular expression
+    #   !ip6~regex  - any IPv6 address that does NOT match the specified regular expression
+    # 
+    #   net~regex   - any IP address of a network interface who's name matches the specified regular expression
+    #   net4~regex  - IPv4 address of a network interface who's name matches the specified regular expression
+    #   net6~regex  - IPv6 address of a network interface who's name matches the specified regular expression
+    # 
+    #   !net~regex  - any IP address of a network interface who's name does NOT match the specified regular expression
+    #   !net4~regex - IPv4 address of a network interface who's name does NOT match the specified regular expression
+    #   !net6~regex - IPv6 address of a network interface who's name does NOT match the specified regular expression
+    # 
+    #  ...all other values will be treated as a directly specified address
+    # 
     host: any-ip4
+
+    # Port number.
     port: 10012
+
+    # Maximum value for port auto-increment (if the specified `port` is busy).
     port-range: 100
+
+    # Amount of threads for network events processing (typically should not exceed the amount of CPU cores).
     nio-threads: 4
+
     transport: auto
+
     connect-timeout: 3000
+
     heartbeat-interval: 1000
+
     heartbeat-loss-threshold: 3
+
     accept-retry-interval: 1000
 
+  ########################################################################################
+  # Cluster Configuration
+  ########################################################################################
   cluster:
     gossip-interval: 1000
+
     speed-up-gossip-size: 100
+
     split-brain-action: rejoin
 
+
+    ########################################################################################
+    # Cluster Health
+    ########################################################################################
     health:
+
       heartbeat-interval: 500
+
       heartbeat-loss-threshold: 6
+
       failure-detection-quorum: 2
 
+    ########################################################################################
+    # Seed Nodes Discovery
+    ########################################################################################
     seed:
       policy: ignore_partial_errors
+
+      ######################################################################################
+      # IP Multicast
+      ######################################################################################
       multicast:
         enable: true
         group: 224.1.2.12
@@ -41,6 +120,9 @@ hekate:
         wait-time: 1000
         loop-back-disabled: false
 
+      ######################################################################################
+      # Static Addresses
+      ######################################################################################
       static:
         enable: false
         addresses:
@@ -48,11 +130,17 @@ hekate:
           - 127.0.0.1:10013
           - 127.0.0.1:10014
 
+      ######################################################################################
+      # Shared File System
+      ######################################################################################
       filesystem:
         enable: false
         work-dir: ./cluster_nodes
         cleanup-interval: 60000
 
+      ######################################################################################
+      # Shared Database (JDBC)
+      ######################################################################################
       jdbc:
         enable: false
         query-timeout: 3
@@ -62,6 +150,9 @@ hekate:
         cluster-column: cluster_name
         cleanup-interval: 60000
 
+      ######################################################################################
+      # ZooKeeper
+      ######################################################################################
       zookeeper:
         enable: false
         connection-string: localhost:2181
@@ -69,6 +160,9 @@ hekate:
         connect-timeout: 3000
         session-timeout: 10000
 
+      ######################################################################################
+      # Cloud
+      ######################################################################################
       cloud:
         enable: false
         provider: aws-ec2
@@ -78,6 +172,9 @@ hekate:
         identity: '<replace with access key>'
         credential: '<replace with secret key>'
 
+      ######################################################################################
+      # Cloud Store
+      ######################################################################################
       cloudstore:
         enable: false
         provider: aws-s3

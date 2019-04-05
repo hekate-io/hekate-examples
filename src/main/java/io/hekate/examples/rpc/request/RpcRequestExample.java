@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.hekate.examples.rpc;
+package io.hekate.examples.rpc.request;
 
 import io.hekate.core.Hekate;
 import io.hekate.rpc.Rpc;

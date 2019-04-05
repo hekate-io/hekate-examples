@@ -14,23 +14,26 @@
  * under the License.
  */
 
-package io.hekate.examples.messaging;
+package io.hekate.examples.messaging.broadcast;
 
 import io.hekate.core.Hekate;
 import io.hekate.messaging.MessagingChannel;
 import io.hekate.messaging.MessagingChannelConfig;
+import io.hekate.messaging.operation.BroadcastResult;
 import io.hekate.spring.boot.EnableHekate;
 import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import static java.util.stream.Collectors.joining;
+
 /**
- * A simple example of request/response messaging.
+ * A simple example of broadcast messaging.
  */
 @EnableHekate
 @SpringBootApplication
-public class MessagingRequestExample {
+public class MessagingBroadcastExample {
     /**
      * Runs the application.
      *
@@ -39,18 +42,27 @@ public class MessagingRequestExample {
      * @throws Exception Signals application failure.
      */
     public static void main(String[] args) throws Exception {
-        Hekate hekate = SpringApplication.run(MessagingRequestExample.class, args).getBean(Hekate.class);
+        Hekate hekate = SpringApplication.run(MessagingBroadcastExample.class, args).getBean(Hekate.class);
 
         // Get channel by its name (see exampleChannelConfig() method).
         MessagingChannel<String> channel = hekate.messaging()
-            .channel("request-example", String.class)
+            .channel("broadcast-example", String.class)
             .forRemotes();
 
         while (channel.cluster().awaitForNodes()) {
-            // Send PING and await for PONG.
-            String pong = channel.request("PING");
+            String message = "message from " + hekate.localNode();
 
-            say("Got PONG from:  " + pong);
+            // Submit broadcast message.
+            BroadcastResult<String> result = channel.broadcast(message);
+
+            if (result.isSuccess()) {
+                say("Submitted to: " + result.nodes().stream()
+                    .map(node -> node.address().socket().toString())
+                    .collect(joining(","))
+                );
+            } else {
+                say("Failure: " + result.errors());
+            }
 
             // Sleep for a while before submitting the next message.
             Thread.sleep(1000);
@@ -58,30 +70,21 @@ public class MessagingRequestExample {
     }
 
     /**
-     * Configuration of 'request-example' channel.
+     * Configuration of 'broadcast-example' channel.
      *
      * @return Channel configuration.
      */
     @Bean
     public MessagingChannelConfig<String> exampleChannelConfig() {
         return MessagingChannelConfig.of(String.class)
-            .withName("request-example")
+            .withName("broadcast-example")
             .withRetryPolicy(retry -> retry
                 .whileError(err -> err.isCausedBy(IOException.class))
                 .maxAttempts(3)
             )
-            .withReceiver(request -> {
-                say("Got PING from: " + request.from());
-
-                // Send back the response (local node's socket address).
-                String response = request.channel().cluster().topology().localNode().address().socket().toString();
-
-                request.reply(response, err -> {
-                    if (err != null) {
-                        say("Response failure: " + err);
-                    }
-                });
-            });
+            .withReceiver(msg ->
+                say("Received: " + msg.payload())
+            );
     }
 
     private static void say(String msg) {

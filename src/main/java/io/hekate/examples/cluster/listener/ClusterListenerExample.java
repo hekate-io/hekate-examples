@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.hekate.examples.cluster;
+package io.hekate.examples.cluster.listener;
 
 import io.hekate.cluster.event.ClusterChangeEvent;
 import io.hekate.cluster.event.ClusterEvent;

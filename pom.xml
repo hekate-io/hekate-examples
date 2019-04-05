@@ -26,8 +26,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <hekate.version>3.0.0</hekate.version>
-        <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
+        <hekate.version>3.2.0</hekate.version>
+        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
 
         <maven.install.skip>true</maven.install.skip>
     </properties>
@@ -89,7 +89,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.cluster.ClusterViewExample</mainClass>
+                            <mainClass>io.hekate.examples.cluster.view.ClusterViewExample</mainClass>
                             <classifier>cluster-view</classifier>
                         </configuration>
                     </execution>
@@ -100,7 +100,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.cluster.ClusterFutureExample</mainClass>
+                            <mainClass>io.hekate.examples.cluster.future.ClusterFutureExample</mainClass>
                             <classifier>cluster-future</classifier>
                         </configuration>
                     </execution>
@@ -111,7 +111,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.cluster.ClusterListenerExample</mainClass>
+                            <mainClass>io.hekate.examples.cluster.listener.ClusterListenerExample</mainClass>
                             <classifier>cluster-listener</classifier>
                         </configuration>
                     </execution>
@@ -133,7 +133,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.messaging.MessagingAggregateExample</mainClass>
+                            <mainClass>io.hekate.examples.messaging.aggregate.MessagingAggregateExample</mainClass>
                             <classifier>messaging-aggregate</classifier>
                         </configuration>
                     </execution>
@@ -144,7 +144,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.messaging.MessagingBroadcastExample</mainClass>
+                            <mainClass>io.hekate.examples.messaging.broadcast.MessagingBroadcastExample</mainClass>
                             <classifier>messaging-broadcast</classifier>
                         </configuration>
                     </execution>
@@ -155,7 +155,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.messaging.MessagingRequestExample</mainClass>
+                            <mainClass>io.hekate.examples.messaging.request.MessagingRequestExample</mainClass>
                             <classifier>messaging-request</classifier>
                         </configuration>
                     </execution>
@@ -166,7 +166,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.rpc.RpcRequestExample</mainClass>
+                            <mainClass>io.hekate.examples.rpc.request.RpcRequestExample</mainClass>
                             <classifier>rpc-request</classifier>
                         </configuration>
                     </execution>
@@ -177,7 +177,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.rpc.RpcAggregateExample</mainClass>
+                            <mainClass>io.hekate.examples.rpc.aggregate.RpcAggregateExample</mainClass>
                             <classifier>rpc-aggregate</classifier>
                         </configuration>
                     </execution>
@@ -188,7 +188,7 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <mainClass>io.hekate.examples.rpc.RpcSplitAggregateExample</mainClass>
+                            <mainClass>io.hekate.examples.rpc.split.RpcSplitAggregateExample</mainClass>
                             <classifier>rpc-split-aggregate</classifier>
                         </configuration>
                     </execution>
