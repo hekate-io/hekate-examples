@@ -8,11 +8,11 @@ hekate:
   # Node name (optional, simply gives a human-readable name to this cluster node).
   node-name: example-node
 
-  # Roles of this node (optional)
+  # Roles of this node (optional).
   roles:
     - example
 
-  # User-defined properties of this node (optional)
+  # User-defined properties of this node (optional).
   # Remote nodes will be able to see those properties through the cluster service API.
   properties:
     property1: value1
@@ -70,24 +70,50 @@ hekate:
     # Amount of threads for network events processing (typically should not exceed the amount of CPU cores).
     nio-threads: 4
 
+    # Network transport:
+    #
+    #  - auto  - try to autodetect which implementation to use depending on the runtime environment
+    #
+    #  - epoll - optimized Epoll-based transport (for Linux environments only, requires 'netty-transport-native-epoll' module)
+    #
+    #  - nio   - NIO-based transport that is provided by the JRE
     transport: auto
 
+    # Timeout in milliseconds for establishing a TCP socket connection to a remote node.
     connect-timeout: 3000
 
+    # Time interval in milliseconds for sending heartbeats in order to keep TCP socket connections alive.
     heartbeat-interval: 1000
 
+    # Maximum amount of lost heartbeats before considering a TCP connection to be failed.
     heartbeat-loss-threshold: 3
-
-    accept-retry-interval: 1000
 
   ########################################################################################
   # Cluster Configuration
   ########################################################################################
   cluster:
+    # Time interval in milliseconds between gossip rounds.
+    #
+    # During each round the local node will exchange its topology view with a set of randomly selected remote nodes
+    # in order to make sure that topology view is consistent across the whole cluster.
     gossip-interval: 1000
 
+    # Maximum amount of nodes in the cluster for the gossip protocol to speed up by sending messages at a higher rate
+    # so that the cluster could converge faster.
+    #
+    # If this parameter is set to a positive value and the current cluster size is less than the specified value then local node
+    # will send gossip messages at higher rate in order to speed-up cluster convergence. However this can highly increase resources
+    # utilization and should be used in a cluster of relatively small size.
     speed-up-gossip-size: 100
 
+    # Split-brain action:
+    #
+    #  - rejoin    -  restart node and rejoin it to the cluster
+    #
+    #  - terminate -  node should be immediately terminated, but JVM should continue running.
+    #
+    #  - kill_jvm  -  kill the JVM with process exit code = 250
+    #
     split-brain-action: rejoin
 
 
