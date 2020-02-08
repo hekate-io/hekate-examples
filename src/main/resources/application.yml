@@ -18,6 +18,9 @@ hekate:
     property1: value1
     property2: value2
 
+  # Enabled/disables printing of this node's configuration details.
+  config-report: true
+
   ########################################################################################
   # Data Serialization
   ########################################################################################
@@ -44,21 +47,21 @@ hekate:
     #   ip~regex    - any IP address that matches the specified regular expression
     #   ip4~regex   - any IPv4 address that matches the specified regular expression
     #   ip6~regex   - any IPv6 address that matches the specified regular expression
-    # 
+    #
     #   !ip~regex   - any IP address that does NOT match the specified regular expression
     #   !ip4~regex  - any IPv4 address that does NOT match the specified regular expression
     #   !ip6~regex  - any IPv6 address that does NOT match the specified regular expression
-    # 
+    #
     #   net~regex   - any IP address of a network interface who's name matches the specified regular expression
     #   net4~regex  - IPv4 address of a network interface who's name matches the specified regular expression
     #   net6~regex  - IPv6 address of a network interface who's name matches the specified regular expression
-    # 
+    #
     #   !net~regex  - any IP address of a network interface who's name does NOT match the specified regular expression
     #   !net4~regex - IPv4 address of a network interface who's name does NOT match the specified regular expression
     #   !net6~regex - IPv6 address of a network interface who's name does NOT match the specified regular expression
-    # 
+    #
     #  ...all other values will be treated as a directly specified address
-    # 
+    #
     host: any-ip4
 
     # Port number.
