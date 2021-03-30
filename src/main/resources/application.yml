@@ -2,9 +2,6 @@ hekate:
   ########################################################################################
   # Cluster Node Properties
   ########################################################################################
-  # Cluster name (only those instances that are configured with the same cluster name can form a cluster).
-  cluster-name: example-cluster
-
   # Node name (optional, simply gives a human-readable name to this cluster node).
   node-name: example-node
 
@@ -33,6 +30,17 @@ hekate:
   #  - kryo - for Kryo serialization (see https://github.com/EsotericSoftware/kryo)
   #           Requires `io.hekate:hekate-codec-kryo` maven/gradle dependency.
   codec: jdk
+
+  ########################################################################################
+  # Fatal error handling policy.
+  ########################################################################################
+  #
+  #  - terminate - node should be immediately terminated, but JVM should continue running.
+  #
+  #  - exit-jvm  - kill the JVM with 250 exit code
+  #
+  #  - rejoin    - restart the node and rejoin it to the cluster
+  on-fatal-error: rejoin
 
   ########################################################################################
   # Network Configuration
@@ -95,6 +103,9 @@ hekate:
   # Cluster Configuration
   ########################################################################################
   cluster:
+    # Cluster namespace (only those instances that are configured with the same namespace can form a cluster).
+    namespace: example-cluster
+
     # Time interval in milliseconds between gossip rounds.
     #
     # During each round the local node will exchange its topology view with a set of randomly selected remote nodes
@@ -108,17 +119,6 @@ hekate:
     # will send gossip messages at higher rate in order to speed-up cluster convergence. However this can highly increase resources
     # utilization and should be used in a cluster of relatively small size.
     speed-up-gossip-size: 100
-
-    # Split-brain action:
-    #
-    #  - rejoin    -  restart node and rejoin it to the cluster
-    #
-    #  - terminate -  node should be immediately terminated, but JVM should continue running.
-    #
-    #  - kill_jvm  -  kill the JVM with process exit code = 250
-    #
-    split-brain-action: rejoin
-
 
     ########################################################################################
     # Cluster Health
