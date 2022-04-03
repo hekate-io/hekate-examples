@@ -19,19 +19,6 @@ hekate:
   config-report: true
 
   ########################################################################################
-  # Data Serialization
-  ########################################################################################
-  #
-  #  - jdk  - for JDK default serialization
-  #
-  #  - fst  - for FST serialization (see https://github.com/RuedigerMoeller/fast-serialization)
-  #           Requires `io.hekate:hekate-codec-fst` maven/gradle dependency.
-  #
-  #  - kryo - for Kryo serialization (see https://github.com/EsotericSoftware/kryo)
-  #           Requires `io.hekate:hekate-codec-kryo` maven/gradle dependency.
-  codec: jdk
-
-  ########################################################################################
   # Fatal error handling policy.
   ########################################################################################
   #

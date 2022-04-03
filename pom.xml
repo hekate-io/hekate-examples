@@ -26,8 +26,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <hekate.version>4.0.0</hekate.version>
-        <spring.boot.version>2.1.18.RELEASE</spring.boot.version>
+        <hekate.version>4.1.0</hekate.version>
+        <spring.boot.version>2.5.5</spring.boot.version>
 
         <maven.install.skip>true</maven.install.skip>
     </properties>
