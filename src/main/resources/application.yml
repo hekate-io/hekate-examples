@@ -121,6 +121,12 @@ hekate:
     ########################################################################################
     # Seed Nodes Discovery
     ########################################################################################
+    # Controls connection timeout handling when contacting seed nodes.
+    #
+    # If true hen network timeout errors will be treated as permanent failures
+    # and the target node will be removed from the list of active seed nodes.
+    seed-node-fail-fast: false
+
     seed:
       policy: ignore_partial_errors
 
