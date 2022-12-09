@@ -7,7 +7,7 @@ Each such artifact is a self-contained  Spring Boot application that can easily 
 
 ### Software requirements:
 
- - Latest stable [Oracle JDK 8](http://www.oracle.com/technetwork/java/) or [Open JDK 8](http://openjdk.java.net/)
+ - Latest stable [Java SDK](https://adoptopenjdk.net/) (8, 11, 17)
 
 
 ### How to build:
